@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>إتقان للدعاية والإعلان | الهوية كنظام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --y:#F7CE3E; --y2:#FBE08A;
+  --ink:#0E0E0D; --graphite:#161615; --concrete:#20201E; --steel:#2F2F2B;
+  --paper:#EDEAE1; --mute:#9A978B; --line:rgba(237,234,225,.11);
+  --display:'Montserrat',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --pad:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:var(--body);font-size:16.5px;line-height:1.8;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.nocursor,body.nocursor *{cursor:auto}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+::selection{background:var(--y);color:var(--ink)}
+.wrap{width:min(1280px,100% - 2*var(--pad));margin:auto}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.04;letter-spacing:-.025em}
+.label{font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);display:flex;gap:16px;align-items:center}
+.label b{color:var(--y);font-weight:800}
+.label::after{content:"";flex:0 0 48px;height:1px;background:var(--line)}
+.sec{padding:clamp(110px,14vw,190px) 0;position:relative}
+.h2{font-size:clamp(2.6rem,5.8vw,5.2rem);margin-top:26px;max-width:15ch}
+.lead{font-size:1.15rem;color:var(--mute);max-width:600px;margin-top:26px;font-weight:300}
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* progress & cursor */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--y);z-index:90}
+#cur{position:fixed;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;background:var(--y);border-radius:50%;pointer-events:none;z-index:95;transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),opacity .3s}
+#cur.big{width:64px;height:64px;margin:-32px 0 0 -32px;opacity:.9;mix-blend-mode:difference;background:var(--paper)}
+@media (hover:none),(max-width:820px){#cur{display:none}}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:80;padding:28px 0;transition:background .5s,padding .5s,border-color .5s;border-bottom:1px solid transparent}
+nav.s{background:rgba(14,14,13,.9);backdrop-filter:blur(14px);padding:16px 0;border-color:var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:24px}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:900;font-size:1.2rem;letter-spacing:.04em}
+.logo i{width:26px;height:26px;background:var(--y);position:relative;display:block}
+.logo i::after{content:"";position:absolute;left:50%;top:-4px;width:7px;height:7px;background:var(--y);transform:translateX(-50%)}
+.menu{display:flex;gap:30px;font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.menu a{color:var(--mute);transition:color .3s}
+.menu a:hover{color:var(--paper)}
+.cta{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border:1px solid var(--y);color:var(--y);font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;transition:background .35s,color .35s}
+.cta:hover{background:var(--y);color:var(--ink)}
+.burger{display:none;font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.16em;color:var(--paper)}
+@media(max-width:980px){.menu{position:fixed;inset:0;background:var(--graphite);flex-direction:column;justify-content:center;align-items:center;gap:30px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .35s}
+.menu.o{opacity:1;pointer-events:auto}.burger{display:block}.nav .cta{display:none}}
+
+/* hero */
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:180px 0 80px;overflow:hidden;isolation:isolate}
+#spray{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero .meta{position:absolute;top:150px;left:0;right:0}
+.hero h1{font-size:clamp(3.4rem,9.6vw,9.6rem);max-width:13ch;text-transform:none;letter-spacing:-.04em;line-height:.94}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(55%);transition:transform 1.1s var(--ease),opacity 1.1s var(--ease)}
+.hero h1 .w.in{opacity:1;transform:none}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero-row{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:end;margin-top:70px;padding-top:30px;border-top:1px solid var(--line)}
+.hero-row p{font-size:1.15rem;color:var(--mute);max-width:560px;font-weight:300}
+.hero-row p strong{color:var(--paper);font-weight:600}
+.facts{display:flex;gap:56px}
+.facts b{display:block;font-family:var(--display);font-size:clamp(2.4rem,4vw,3.4rem);font-weight:800;line-height:1;letter-spacing:-.03em}
+.facts span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-weight:600}
+@media(max-width:980px){.hero-row{grid-template-columns:1fr;gap:34px}.hero .meta{display:none}}
+@media(max-width:560px){.facts{gap:30px}}
+
+/* statement */
+.statement{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,3.8vw,3.4rem);line-height:1.18;letter-spacing:-.02em;margin-top:44px;max-width:1100px}
+.statement em{font-style:normal;color:var(--y)}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:90px;border-top:1px solid var(--line)}
+.pillar{padding:40px 36px 0 0}
+.pillar + .pillar{padding-left:36px;border-left:1px solid var(--line)}
+.pillar span{font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--y)}
+.pillar h3{font-size:1.5rem;margin:18px 0 12px}
+.pillar p{color:var(--mute);font-weight:300}
+@media(max-width:900px){.pillars{grid-template-columns:1fr}.pillar,.pillar + .pillar{padding:34px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* band */
+.band{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:26px 0;background:var(--graphite)}
+.band .run{display:inline-flex;animation:run 46s linear infinite;will-change:transform}
+.band span{font-family:var(--display);font-weight:800;font-size:clamp(1.1rem,2.2vw,1.6rem);text-transform:uppercase;letter-spacing:.06em;color:var(--mute);padding-right:44px}
+.band span::after{content:"—";color:var(--y);margin-left:44px}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* system (pinned) */
+#system{height:500vh;position:relative;background:var(--graphite);border-bottom:1px solid var(--line)}
+.sys-stick{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1.05fr .95fr;gap:90px;align-items:center}
+.sys-count{font-family:var(--display);font-weight:800;font-size:clamp(6rem,15vw,14rem);line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px var(--y)}
+.sys-name{font-size:clamp(2.2rem,4.4vw,4.2rem);margin:24px 0 20px}
+.sys-desc{color:var(--mute);font-size:1.1rem;max-width:500px;font-weight:300;min-height:6em}
+.stack{display:flex;flex-direction:column;gap:8px}
+.lay{position:relative;display:flex;justify-content:space-between;align-items:center;padding:22px 28px;background:var(--concrete);border:1px solid var(--line);overflow:hidden;transition:transform .6s var(--ease),border-color .6s,color .6s;color:var(--mute)}
+.lay::before{content:"";position:absolute;inset:0;background:var(--y);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease);z-index:0}
+.lay > *{position:relative;z-index:1}
+.lay.on{color:var(--ink);border-color:var(--y);transform:translateX(-16px)}
+.lay.on::before{transform:scaleX(1)}
+.lay b{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:.01em}
+.lay small{font-family:var(--display);font-weight:600;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+.sys-dots{display:flex;gap:6px;margin-top:36px}
+.sys-dots i{height:2px;flex:1;background:var(--steel);transition:background .5s}
+.sys-dots i.on{background:var(--y)}
+@media(max-width:980px){#system{height:auto}.sys-stick{position:relative;height:auto;grid-template-columns:1fr;gap:44px;padding:120px 0}.lay.on{transform:none}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:1px solid var(--line)}
+.step{padding:40px 30px 0 0;position:relative}
+.step + .step{padding-left:30px;border-left:1px solid var(--line)}
+.step .n{font-family:var(--display);font-size:3.4rem;font-weight:800;letter-spacing:-.04em;color:var(--steel);transition:color .5s}
+.step:hover .n{color:var(--y)}
+.step h3{font-size:1.3rem;margin:16px 0 10px}
+.step p{color:var(--mute);font-weight:300;font-size:.95rem}
+@media(max-width:980px){.steps{grid-template-columns:1fr 1fr}.step:nth-child(3){padding-left:0;border-left:0}.step{padding-bottom:40px;border-bottom:1px solid var(--line)}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}.step,.step + .step{padding-left:0;border-left:0}}
+
+/* services */
+.svc-head{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap}
+.search{background:none;border:0;border-bottom:1px solid var(--line);padding:12px 2px;width:min(340px,100%);outline:none;font-size:.95rem;transition:border-color .4s}
+.search:focus{border-color:var(--y)}
+.acc{margin-top:70px;border-top:1px solid var(--line)}
+.acc-row{border-bottom:1px solid var(--line)}
+.acc-btn{width:100%;display:grid;grid-template-columns:80px 1fr auto 40px;align-items:center;gap:20px;padding:30px 0;text-align:left;transition:padding .5s var(--ease)}
+.acc-btn:hover{padding-left:12px}
+.acc-btn .num{font-family:var(--display);font-weight:700;color:var(--y);font-size:.8rem;letter-spacing:.1em}
+.acc-btn h3{font-size:clamp(1.5rem,2.8vw,2.4rem);font-weight:700}
+.acc-btn .cnt{font-family:var(--display);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.acc-btn .plus{font-family:var(--display);font-size:1.8rem;font-weight:300;color:var(--y);transition:transform .5s var(--ease);justify-self:end}
+.acc-row.open .plus{transform:rotate(45deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .7s var(--ease)}
+.acc-body ul{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin:0 0 40px 100px;border:1px solid var(--line)}
+.acc-body li{background:var(--ink);padding:16px 20px;font-size:.92rem;color:var(--mute);font-weight:300;transition:background .3s,color .3s}
+.acc-body li:hover{background:var(--graphite);color:var(--paper)}
+.acc-body li b{color:var(--y);font-family:var(--display);font-size:.7rem;margin-right:10px;font-weight:700}
+.acc-row.hidden{display:none}
+@media(max-width:980px){.acc-body ul{grid-template-columns:1fr 1fr;margin-left:0}.acc-btn{grid-template-columns:44px 1fr 36px}.acc-btn .cnt{display:none}}
+@media(max-width:560px){.acc-body ul{grid-template-columns:1fr}}
+
+/* work */
+.work-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:40px}
+.filters{display:flex;gap:4px;flex-wrap:wrap}
+.f{padding:11px 18px;border:1px solid var(--line);font-family:var(--display);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);transition:.3s}
+.f:hover{color:var(--paper);border-color:var(--mute)}
+.f.on{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.hscroll{display:flex;gap:20px;overflow-x:auto;padding:60px 0 30px;margin:0 calc(50% - 50vw);padding-left:max(var(--pad),calc(50vw - 640px));scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--y) var(--steel)}
+.hscroll::-webkit-scrollbar{height:3px}.hscroll::-webkit-scrollbar-thumb{background:var(--y)}
+.pc{flex:0 0 380px;height:500px;position:relative;scroll-snap-align:start;background:linear-gradient(170deg,var(--c),var(--ink) 95%);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:30px;border:1px solid var(--line);transition:border-color .5s,transform .6s var(--ease)}
+.pc::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,13,.96) 20%,rgba(14,14,13,0) 65%);pointer-events:none}
+.pc > *{position:relative;z-index:1}
+.pc .idx{font-family:var(--display);font-weight:800;font-size:.8rem;letter-spacing:.14em;color:var(--paper)}
+.pc .tag{font-family:var(--display);font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--y)}
+.pc h3{font-size:1.7rem;margin:12px 0 10px}
+.pc p{color:#c9c5b6;font-size:.92rem;font-weight:300}
+.pc:hover{border-color:var(--y);transform:translateY(-6px)}
+.pc.hide{display:none}
+@media(max-width:1280px){.hscroll{padding-left:var(--pad)}}
+.scope{font-family:var(--display);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-top:10px}
+
+/* clients */
+.clients-l{display:grid;grid-template-columns:repeat(3,1fr);margin-top:70px;border-top:1px solid var(--line)}
+.clients-l span{padding:34px 26px;border-bottom:1px solid var(--line);font-family:var(--display);font-weight:700;font-size:1.02rem;color:var(--mute);transition:color .4s,background .4s;letter-spacing:.02em}
+.clients-l span:nth-child(3n+2){border-inline:1px solid var(--line)}
+.clients-l span:hover{color:var(--ink);background:var(--y)}
+@media(max-width:820px){.clients-l{grid-template-columns:1fr 1fr}.clients-l span:nth-child(3n+2){border-inline:0}.clients-l span:nth-child(odd){border-inline-end:1px solid var(--line)}}
+@media(max-width:520px){.clients-l{grid-template-columns:1fr}.clients-l span{border-inline:0!important}}
+
+/* build */
+.build{background:var(--graphite);border-top:1px solid var(--line)}
+.build-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;margin-top:70px;align-items:start}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;text-align:left;padding:28px 26px 26px;border:1px solid var(--line);background:var(--ink);transition:border-color .4s,transform .5s var(--ease)}
+.tile:hover{transform:translateY(-3px);border-color:var(--mute)}
+.tile.on{border-color:var(--y)}
+.tile .chk{position:absolute;top:20px;right:20px;width:20px;height:20px;border:1px solid var(--mute);display:grid;place-items:center;font-size:.75rem;font-weight:800;color:var(--ink);transition:.3s}
+.tile.on .chk{background:var(--y);border-color:var(--y)}
+.tile b{display:block;font-family:var(--display);font-size:1.1rem;font-weight:700;margin:40px 0 6px;padding-right:30px}
+.tile small{color:var(--mute);font-size:.86rem;font-weight:300}
+.summary{position:sticky;top:120px;background:var(--ink);border:1px solid var(--line);padding:44px}
+.summary h3{font-size:1.5rem;margin-bottom:8px}
+.summary .sub{color:var(--mute);margin-bottom:26px;font-size:.92rem;font-weight:300}
+.sum-list{list-style:none;margin-bottom:26px;min-height:120px}
+.sum-list li{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.sum-list li em{font-style:normal;color:var(--y);font-family:var(--display);font-weight:700}
+.empty{color:var(--mute);font-style:italic;padding:12px 0;font-weight:300}
+.field{width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 0;outline:none;font-size:.95rem;margin-bottom:26px;transition:border-color .4s}
+.field:focus{border-color:var(--y)}
+.field::placeholder{color:#6b685e}
+.send{width:100%;padding:19px;background:var(--y);color:var(--ink);font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;transition:background .3s,transform .3s var(--ease)}
+.send:hover{background:var(--y2);transform:translateY(-2px)}
+.send:disabled{opacity:.35;cursor:not-allowed;transform:none}
+@media(max-width:980px){.build-grid{grid-template-columns:1fr;gap:44px}.summary{position:relative;top:0}}
+@media(max-width:520px){.tiles{grid-template-columns:1fr}}
+
+/* contact */
+.contact-big{font-family:var(--display);font-weight:800;font-size:clamp(3.2rem,10vw,9.5rem);line-height:.92;letter-spacing:-.045em;margin-top:34px}
+.contact-big a{color:var(--paper);transition:color .4s}
+.contact-big a:hover{color:var(--y)}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:90px;border-top:1px solid var(--line)}
+.info div{padding:34px 34px 0 0}
+.info div + div{padding-left:34px;border-left:1px solid var(--line)}
+.info small{font-family:var(--display);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--y);font-weight:700}
+.info p{margin-top:10px;font-weight:300;font-size:1.02rem}
+@media(max-width:860px){.info{grid-template-columns:1fr}.info div,.info div + div{padding:30px 0;border-left:0;border-bottom:1px solid var(--line)}}
+footer{padding:34px 0;border-top:1px solid var(--line);font-family:var(--display);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(8,8,7,.86);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(6px)}
+.modal.o{display:flex}
+.mbox{background:var(--graphite);border:1px solid var(--line);max-width:620px;width:100%;padding:50px;position:relative;animation:up .6s var(--ease)}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.mbox h3{font-size:2.2rem;margin:16px 0 16px}
+.mbox p{color:var(--mute);margin-bottom:28px;font-weight:300}
+.mbox dl{display:grid;grid-template-columns:auto 1fr;gap:14px 26px;font-size:.92rem}
+.mbox dt{font-family:var(--display);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--y);padding-top:4px;font-weight:700}
+.x{position:absolute;top:16px;right:20px;font-size:1.8rem;color:var(--paper);font-weight:300}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.hero h1 .w{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cur"></div>
+
+<nav id="nav">
+  <div class="wrap nav">
+    <a href="#top" class="logo"><i></i>ETQAN</a>
+    <div class="menu" id="menu">
+      <a href="#about">Company</a>
+      <a href="#system">System</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#clients">Clients</a>
+      <a href="#build">Build</a>
+    </div>
+    <a class="cta" href="#build">Start a project</a>
+    <button class="burger" id="burger" aria-label="Menu">MENU</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="spray"></canvas>
+  <div class="wrap">
+    <div class="label" style="margin-bottom:34px">Abu Dhabi · Established 2017</div>
+    <h1 id="h1">A brand is a <em>system.</em> We build it to lead.</h1>
+    <div class="hero-row">
+      <p><strong>Etqan</strong> is a branding and advertising company that designs and delivers the complete identity of a business: name, logo, digital presence, sound, scent, signage and vehicles, under one roof.</p>
+      <div class="facts">
+        <div><b data-c="300">0</b><span>Projects delivered</span></div>
+        <div><b data-c="83">0</b><span>Services offered</span></div>
+        <div><b data-c="9">0</b><span>Years of practice</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="label rv"><b>01</b> Company</div>
+    <p class="statement rv">We are a studio of designers, copywriters and producers who take responsibility for every touchpoint of a brand. Our work is built on <em>precision, transparency and delivery</em> on time. We use AI as a tool, never as a substitute for judgment.</p>
+    <div class="pillars">
+      <div class="pillar rv"><span>01</span><h3>One partner, every discipline</h3><p>From the first name to the last vehicle wrap, you deal with one team and one standard, not five vendors.</p></div>
+      <div class="pillar rv"><span>02</span><h3>Clients informed at every stage</h3><p>You see each stage, each draft and each update, so there are no surprises at delivery.</p></div>
+      <div class="pillar rv"><span>03</span><h3>Built to be installed</h3><p>We design with production in mind, from fabrication and print to the final installation on site.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="run" id="band"></div></div>
+
+<section id="system">
+  <div class="wrap sys-stick">
+    <div>
+      <div class="label"><b>02</b> The system</div>
+      <div class="sys-count" id="sysNum" style="margin-top:30px">01</div>
+      <h2 class="sys-name" id="sysName">Verbal</h2>
+      <p class="sys-desc" id="sysDesc"></p>
+      <div class="sys-dots" id="dots"></div>
+    </div>
+    <div class="stack" id="stack"></div>
+  </div>
+</section>
+
+<section class="sec" id="process">
+  <div class="wrap">
+    <div class="label rv"><b>03</b> How we work</div>
+    <h2 class="h2 rv">Four stages. No guesswork.</h2>
+    <div class="steps">
+      <div class="step rv"><div class="n">01</div><h3>Discover</h3><p>We study the business, its market and the goal before drawing anything.</p></div>
+      <div class="step rv"><div class="n">02</div><h3>Define</h3><p>Name, message, identity and direction are agreed in writing before production begins.</p></div>
+      <div class="step rv"><div class="n">03</div><h3>Produce</h3><p>Design, fabrication, print, audio and digital build run side by side under one plan.</p></div>
+      <div class="step rv"><div class="n">04</div><h3>Deliver</h3><p>We install, launch and hand over, and stay available for every update that follows.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="services" style="padding-top:40px">
+  <div class="wrap">
+    <div class="svc-head">
+      <div>
+        <div class="label rv"><b>04</b> Services</div>
+        <h2 class="h2 rv">Five disciplines.<br>One identity.</h2>
+      </div>
+      <input class="search" id="q" placeholder="Search a service" aria-label="Search services">
+    </div>
+    <div class="acc" id="acc"></div>
+  </div>
+</section>
+
+<section class="sec" id="work" style="padding-top:60px;padding-bottom:110px">
+  <div class="wrap work-head">
+    <div>
+      <div class="label rv"><b>05</b> Selected work</div>
+      <h2 class="h2 rv" style="max-width:16ch">Built to be seen from the road.</h2>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+  <div class="hscroll" id="hs"></div>
+</section>
+
+<section class="sec" id="clients" style="padding-top:60px">
+  <div class="wrap">
+    <div class="label rv"><b>06</b> Clients</div>
+    <h2 class="h2 rv" style="max-width:18ch">Trusted by organisations across Abu Dhabi.</h2>
+    <div class="clients-l" id="clientsList"></div>
+  </div>
+</section>
+
+<section class="sec build" id="build">
+  <div class="wrap">
+    <div class="label rv"><b>07</b> Build your brand</div>
+    <h2 class="h2 rv">Choose your layers.<br>We will start from there.</h2>
+    <div class="build-grid">
+      <div class="tiles" id="tiles"></div>
+      <aside class="summary rv">
+        <h3>Your brand system</h3>
+        <p class="sub" id="sumSub">Select at least one layer.</p>
+        <ul class="sum-list" id="sumList"></ul>
+        <input class="field" id="bizName" placeholder="Business name (optional)" maxlength="80">
+        <button class="send" id="send" disabled>Send brief on WhatsApp</button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="contact" style="padding-bottom:120px">
+  <div class="wrap">
+    <div class="label rv"><b>08</b> Contact</div>
+    <div class="contact-big rv"><a href="https://wa.me/971551258778" target="_blank" rel="noopener">Let’s talk.</a></div>
+    <div class="info rv">
+      <div><small>Call / WhatsApp</small><p>+971 55 125 8778</p></div>
+      <div><small>Email</small><p>info@etqan.ae<br>etqanuae@gmail.com</p></div>
+      <div><small>Studio</small><p>Hamdan Bin Mohammed St, Al Danah, Zone 1, Abu Dhabi, UAE</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© Etqan Advertising &amp; Publicity L.L.C</span><span>www.etqan.ae · Established 2017</span></div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="mbox">
+    <button class="x" id="mx" aria-label="Close">×</button>
+    <span class="label" id="mCat" style="font-size:.66rem"></span>
+    <h3 id="mTitle"></h3>
+    <p id="mDesc"></p>
+    <dl><dt>Client</dt><dd id="mClient"></dd><dt>Location</dt><dd id="mLoc"></dd><dt>Type</dt><dd id="mType"></dd></dl>
+  </div>
+</div>
+
+<script>
+const layers=[
+{k:'Verbal',n:'Verbal identity',d:'Everything starts with a name and a voice. We select the name, write the message and build the narrative that explains what the brand stands for.',s:[
+'Professional Business Naming','Reserving Names in Economic Departments in UAE','Textual Content creation (Copywriting)','Formulating A Verbal Slogan','Commercial Translation','Composing Formal and Executive Correspondence','Composing Poetry and Songs Lyrics','Copywriting Texts In Many Languages']},
+{k:'Visual',n:'Visual identity',d:'The logo is the most critical element, followed by colour, typography and the full set of visual assets that shape how people remember you.',s:[
+'Custom Stamp & Seal Design','Strategic Logo Design','Artistic Logo Animation','Custom Typography & Typeface Design','Brand Pattern & Texture Creation','Brand Color Palette & Harmonization','Iconography & Icon Set Design','Brand Application Mockups','Social Media Profile & Page Templates','Professional Presentation Design','Interior & Exterior Environmental Graphics','Editorial Design: Brochures, Leaflets & Books','Custom Print Media Production','Design & Printing of Branded Packaging Bags','Structural Packaging Design (3D)','Product Label Design & Production','Premium Business Card Design and Print','Indoor & Outdoor Signage Solutions','Wayfinding & Directional Signage Systems','Custom Flag & Banner Design','Corporate Uniform Design & Execution','Custom Plastic Nameplates & Signage','Screen Printing on Diverse Substrates','Commercial Vehicle Branding & Graphics','Comprehensive Graphic Design Services','Brand Identity Guidelines & Manuals','Exhibition Stand & Pavilion Design','Premium Promotional Merchandise','Mural Design & Custom Artwork','Professional Web & UI Design','Branded Corporate Gifts']},
+{k:'Digital',n:'Digital identity',d:'Your website is the official headquarters of the brand online. Social platforms, search, maps and digital tools keep it alive and in front of people.',s:[
+'Business email account setup','Email signature design','Website Development','Creating landing pages','E-commerce platform design & development','Search Engine Optimization (SEO)','Google Maps & Google Business Profile','Social media profiles setup & management','Personalized QR codes (static & dynamic)','NFC tags programming','Google Reviews links & icons','Online polls and surveys','Electronic forms (all types)','Converting rare books & manuscripts to PDF','Digital customer service via WhatsApp','Digital appointment scheduling systems','Digital archiving of files and documents','Digital presentations','Interactive digital catalogs & profiles','Image enhancement & resolution refinement']},
+{k:'Audio',n:'Audio identity',d:'A distinct sound builds an emotional bond. People recognise the brand by its melody, even when they cannot see the advertisement.',s:[
+'Audio production across all genres','Sonic branding composition & recording','Radio advertisement scriptwriting & production','Voiceover execution','Audiobook & educational recording','IVR system setup','On-hold music production','Multilingual voice messaging for queues & service centers','Voice recording for alarm & safety systems','Background music for videos','Sound effects (SFX) integration','Audio-to-video synchronization','Acoustic environment design for commercial spaces','Alert tones & audio notifications for apps','Audio cleaning & noise reduction','Multilingual audio versioning','Restoration of legacy audio materials']},
+{k:'Scent',n:'Scent identity',d:'A signature fragrance for your premises and products stays in the customer’s memory from the moment they walk in.',s:[
+'Developing & crafting a unique brand fragrance','Provision & installation of fragrance systems','Scheduling fragrance systems & calibrating diffusion','Maintenance & monitoring of fragrance devices','Evaluating fragrance impact on customer experience','Choosing fragrances for professional environments','Ensuring fragrance consistency across all branches']}
+];
+const projects=[
+{c:'sign',cat:'Signage',t:'Bani Yas Brands Mall',cl:'Bani Yas Brands Mall',loc:'Bani Yas, Abu Dhabi',type:'Illuminated 3D outdoor signage on the main façade',d:'Complete design, fabrication and installation of premium illuminated outdoor 3D signage on the mall’s main façade.',c1:'#5a4a12'},
+{c:'sign',cat:'Signage',t:'Hikma Medical Center',cl:'Hikma Medical Center',loc:'Khalifa City, Abu Dhabi',type:'LED outdoor signage, cladding and directory board',d:'Design, fabrication and installation of outdoor LED signage, cladding and a customised directory board.',c1:'#3a3a36'},
+{c:'sign',cat:'Signage',t:'Al Mushrif Property',cl:'Al Mamzar Real Estate',loc:'Shakhbout Bin Sultan St, Al Mushrif',type:'Backlit 3D stainless steel signage',d:'Design, fabrication and installation of premium backlit 3D stainless steel signage.',c1:'#4a4a45'},
+{c:'sign',cat:'Signage',t:'Storefront Illumination',cl:'TURQUOISE Interiors',loc:'Near Marina Mall, Abu Dhabi',type:'Illuminated 3D storefront sign',d:'Design, fabrication and installation of a custom illuminated 3D storefront sign.',c1:'#5a4a12'},
+{c:'sign',cat:'Signage',t:'Reception Identity',cl:'China National Engineering Ltd',loc:'Hamdan St, Abu Dhabi',type:'Indoor acrylic signage and glass branding',d:'Indoor reception signage, custom acrylic plaques and glass branding.',c1:'#3a3a36'},
+{c:'vinyl',cat:'Vinyl',t:'Façade Wrap, 3,000 m²',cl:'TMKN Properties',loc:'Al Khalidiyah, Abu Dhabi',type:'One-way vision sticker covering about 3,000 m²',d:'Design, printing and installation of a large one-way vision sticker on a prominent building façade.',c1:'#33332F'},
+{c:'vinyl',cat:'Vinyl',t:'High-Rise Wrap',cl:'Modon Holding',loc:'Hamdan Junction, Al Salam St',type:'One-way vision sticker at high altitude',d:'Design, printing and high-altitude installation of a massive one-way vision sticker on a high-rise.',c1:'#6b5a1c'},
+{c:'vinyl',cat:'Vinyl',t:'Building Wrap',cl:'Reportage Properties LLC',loc:'Al Salam St, Abu Dhabi',type:'Large-scale one-way vision building wrap',d:'Design, printing and high-altitude installation of a large-scale building wrap.',c1:'#3a3a36'},
+{c:'vinyl',cat:'Vinyl',t:'Frosted Office Glass',cl:'Hikma Medical Center',loc:'Al Salam St, Abu Dhabi',type:'Indoor frosted glass sticker',d:'Custom frosted glass stickers for privacy and corporate branding on office partitions.',c1:'#4a4a45'},
+{c:'vinyl',cat:'Vinyl',t:'Window Graphics',cl:'Abu Dhabi Islamic Bank (ADIB)',loc:'Hamdan St, Abu Dhabi',type:'Large one-way vision window graphics',d:'Vibrant large-scale one-way vision window graphics for the bank.',c1:'#5a4a12'},
+{c:'vehicle',cat:'Vehicles',t:'Commercial Van Wrap',cl:'Collective Chocolate',loc:'Al Falah St, Abu Dhabi',type:'Full van wrap in PVC and one-way vision film',d:'Design, printing and installation of a full commercial van wrap.',c1:'#3a3a36'},
+{c:'vehicle',cat:'Vehicles',t:'Delivery Van',cl:'24Fast Laundry',loc:'Khalifa St, Abu Dhabi',type:'Vibrant van wrap',d:'A bold commercial van wrap in premium PVC and one-way vision film.',c1:'#6b5a1c'},
+{c:'vehicle',cat:'Vehicles',t:'Compact Car Wrap',cl:'Dough Masters Pizza',loc:'JLT, Dubai',type:'Compact car wrap with window graphics',d:'A custom wrap for a compact car, with PVC and one-way vision window graphics.',c1:'#4a4a45'},
+{c:'vehicle',cat:'Vehicles',t:'Commercial Bus Wrap',cl:'FunCity',loc:'Multiple areas, Abu Dhabi',type:'Large-scale commercial bus wrap',d:'Design, printing and large-scale installation of a commercial bus wrap.',c1:'#5a4a12'},
+{c:'vehicle',cat:'Vehicles',t:'Fleet Branding',cl:'H Building Maintenance',loc:'Al Reem Island, Abu Dhabi',type:'Corporate fleet branding',d:'Premium PVC and one-way vision graphics for corporate vehicles.',c1:'#33332F'},
+{c:'wall',cat:'Art',t:'Meeting Rooms',cl:'Corporate spaces',loc:'Abu Dhabi',type:'Canvas wall art',d:'Canvas artwork that makes meeting rooms feel intentional.',c1:'#3a3a36'},
+{c:'wall',cat:'Art',t:'Fashion Shops',cl:'Retail',loc:'Abu Dhabi',type:'Canvas wall art',d:'Wall art designed for fashion retail interiors.',c1:'#6b5a1c'},
+{c:'wall',cat:'Art',t:'Pharmacies',cl:'Healthcare retail',loc:'Abu Dhabi',type:'Canvas wall art',d:'Calm, clear artwork for pharmacy interiors.',c1:'#4a4a45'},
+{c:'wall',cat:'Art',t:'Hospitals',cl:'Healthcare',loc:'Abu Dhabi',type:'Canvas wall art',d:'Artwork that softens hospital corridors and waiting areas.',c1:'#3a3a36'},
+{c:'wall',cat:'Art',t:'Public & Commercial Areas',cl:'Various',loc:'Abu Dhabi',type:'Canvas wall art',d:'Artwork for shared and commercial spaces of all kinds.',c1:'#5a4a12'}
+];
+const clients=['Bani Yas Brands Mall','Hikma Medical Center','Al Mamzar Real Estate','TURQUOISE Interiors','China National Engineering','TMKN Properties','Modon Holding','Reportage Properties','ADIB','Collective Chocolate','24Fast Laundry','Dough Masters Pizza','FunCity','H Building Maintenance','AL NASIYA'];
+const cats=[['all','All'],['sign','Signage'],['vinyl','Vinyl'],['vehicle','Vehicles'],['wall','Art']];
+
+/* hero words */
+(function(){
+  const h=document.getElementById('h1');
+  const walk=n=>{[...n.childNodes].forEach(c=>{
+    if(c.nodeType===3){const f=document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;
+        if(/^\s+$/.test(t))f.appendChild(document.createTextNode(' '));
+        else{const s=document.createElement('span');s.className='w';s.textContent=t;f.appendChild(s)}});
+      c.replaceWith(f)}
+    else if(c.nodeType===1)walk(c)})};
+  walk(h);
+  h.querySelectorAll('.w').forEach((w,i)=>setTimeout(()=>w.classList.add('in'),250+i*100));
+})();
+
+/* hero spray */
+(function(){
+  const cv=document.getElementById('spray'),cx=cv.getContext('2d'),hero=cv.parentElement;
+  let parts=[],last=null;
+  function size(){const d=Math.min(devicePixelRatio||1,2);cv.width=cv.offsetWidth*d;cv.height=cv.offsetHeight*d;cx.setTransform(d,0,0,d,0,0)}
+  size();addEventListener('resize',size);
+  hero.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();const m={x:e.clientX-r.left,y:e.clientY-r.top};
+    if(last)for(let i=0;i<2;i++)parts.push({x:m.x+(Math.random()-.5)*16,y:m.y+(Math.random()-.5)*16,r:Math.random()*12+5,a:.14,c:Math.random()<.9?'247,206,62':'237,234,225'});
+    last=m});
+  hero.addEventListener('pointerleave',()=>{last=null});
+  (function loop(){cx.clearRect(0,0,cv.offsetWidth,cv.offsetHeight);
+    parts=parts.filter(p=>p.a>.008);
+    for(const p of parts){p.a*=.985;const g=cx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+      g.addColorStop(0,`rgba(${p.c},${p.a})`);g.addColorStop(1,`rgba(${p.c},0)`);
+      cx.fillStyle=g;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()}
+    if(parts.length>1400)parts.splice(0,parts.length-1400);
+    requestAnimationFrame(loop)})();
+})();
+
+/* band */
+(function(){const t=layers.map(l=>`<span>${l.k} identity</span>`).join('');document.getElementById('band').innerHTML=t+t+t+t})();
+
+/* pinned system */
+const stack=document.getElementById('stack'),dots=document.getElementById('dots');
+layers.forEach((l,i)=>{
+  stack.insertAdjacentHTML('beforeend',`<div class="lay" data-i="${i}"><b>${l.n}</b><small>${String(l.s.length).padStart(2,'0')} services</small></div>`);
+  dots.insertAdjacentHTML('beforeend','<i></i>');
+});
+let sysIdx=-1;const sysEl=document.getElementById('system');
+function setSys(i){
+  if(i===sysIdx)return;sysIdx=i;const l=layers[i];
+  stack.querySelectorAll('.lay').forEach((el,j)=>el.classList.toggle('on',j<=i));
+  [...dots.children].forEach((d,j)=>d.classList.toggle('on',j<=i));
+  document.getElementById('sysNum').textContent=String(i+1).padStart(2,'0');
+  document.getElementById('sysName').textContent=l.n;
+  document.getElementById('sysDesc').textContent=l.d;
+}
+function sysScroll(){
+  const r=sysEl.getBoundingClientRect(),range=sysEl.offsetHeight-innerHeight;
+  const p=Math.min(Math.max(-r.top/range,0),1);
+  setSys(Math.min(layers.length-1,Math.floor(p*layers.length*0.999)));
+}
+setSys(0);
+
+/* services accordion */
+const acc=document.getElementById('acc');
+layers.forEach((l,i)=>{
+  acc.insertAdjacentHTML('beforeend',`<div class="acc-row" data-i="${i}">
+    <button class="acc-btn" aria-expanded="false"><span class="num">${String(i+1).padStart(2,'0')}</span><h3>${l.n}</h3><span class="cnt">${l.s.length} services</span><span class="plus">+</span></button>
+    <div class="acc-body"><ul>${l.s.map((s,j)=>`<li><b>${String(j+1).padStart(2,'0')}</b>${s}</li>`).join('')}</ul></div></div>`);
+});
+acc.addEventListener('click',e=>{const b=e.target.closest('.acc-btn');if(!b)return;
+  const row=b.parentElement,body=row.querySelector('.acc-body'),open=!row.classList.contains('open');
+  row.classList.toggle('open',open);b.setAttribute('aria-expanded',open);
+  body.style.maxHeight=open?body.scrollHeight+'px':'0';});
+document.getElementById('q').addEventListener('input',e=>{
+  const f=e.target.value.trim().toLowerCase();
+  acc.querySelectorAll('.acc-row').forEach(row=>{
+    const i=+row.dataset.i,body=row.querySelector('.acc-body'),btn=row.querySelector('.acc-btn');
+    const hits=layers[i].s.filter(s=>s.toLowerCase().includes(f)).length;
+    row.classList.toggle('hidden',f!==''&&hits===0);
+    body.querySelectorAll('li').forEach((li,j)=>li.style.display=!f||layers[i].s[j].toLowerCase().includes(f)?'':'none');
+    row.classList.toggle('open',!!f);
+    body.style.maxHeight=f?body.scrollHeight+'px':'0';
+    btn.setAttribute('aria-expanded',!!f);
+  });
+});
+
+/* work */
+const fl=document.getElementById('filters'),hs=document.getElementById('hs');
+let fc='all';
+cats.forEach(([k,n])=>{const b=document.createElement('button');b.className='f'+(k==='all'?' on':'');b.textContent=n;
+  b.onclick=()=>{fc=k;[...fl.children].forEach(x=>x.classList.toggle('on',x===b));applyF()};fl.appendChild(b)});
+hs.innerHTML=projects.map((p,i)=>`<article class="pc" data-c="${p.c}" data-i="${i}" tabindex="0" style="--c:${p.c1}">
+  <div class="idx">${String(i+1).padStart(2,'0')} / ${String(projects.length).padStart(2,'0')}</div>
+  <div><span class="tag">${p.cat}</span><h3>${p.t}</h3><p>${p.cl}</p></div></article>`).join('');
+function applyF(){[...hs.children].forEach(el=>el.classList.toggle('hide',fc!=='all'&&el.dataset.c!==fc));hs.scrollLeft=0}
+const modal=document.getElementById('modal');
+const openP=i=>{const p=projects[i];
+  document.getElementById('mCat').textContent=p.cat;document.getElementById('mTitle').textContent=p.t;
+  document.getElementById('mDesc').textContent=p.d;document.getElementById('mClient').textContent=p.cl;
+  document.getElementById('mLoc').textContent=p.loc;document.getElementById('mType').textContent=p.type;
+  modal.classList.add('o')};
+hs.addEventListener('click',e=>{const el=e.target.closest('.pc');if(el)openP(+el.dataset.i)});
+hs.addEventListener('keydown',e=>{const el=e.target.closest('.pc');if(el&&e.key==='Enter')openP(+el.dataset.i)});
+const closeM=()=>modal.classList.remove('o');
+document.getElementById('mx').onclick=closeM;
+modal.onclick=e=>{if(e.target===modal)closeM()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+/* clients */
+document.getElementById('clientsList').innerHTML=clients.map(c=>`<span>${c}</span>`).join('');
+
+/* builder */
+const picked=new Set();const tiles=document.getElementById('tiles');
+layers.forEach((l,i)=>{
+  const b=document.createElement('button');b.className='tile';b.setAttribute('aria-pressed','false');
+  b.innerHTML=`<span class="chk"></span><b>${l.n}</b><small>${l.s.length} services</small>`;
+  b.onclick=()=>{picked.has(i)?picked.delete(i):picked.add(i);
+    b.classList.toggle('on',picked.has(i));b.setAttribute('aria-pressed',picked.has(i));
+    b.querySelector('.chk').textContent=picked.has(i)?'✓':'';renderSum()};
+  tiles.appendChild(b);
+});
+function renderSum(){
+  const sel=[...picked].sort().map(i=>layers[i]);
+  const count=sel.reduce((a,l)=>a+l.s.length,0);
+  document.getElementById('sumSub').textContent=sel.length?`${sel.length} of 5 layers · ${count} services included`:'Select at least one layer.';
+  document.getElementById('sumList').innerHTML=sel.length?sel.map(l=>`<li><span>${l.n}</span><em>${l.s.length}</em></li>`).join(''):'<li class="empty">Nothing selected yet.</li>';
+  document.getElementById('send').disabled=!sel.length;
+}
+document.getElementById('send').onclick=()=>{
+  const sel=[...picked].sort().map(i=>layers[i].n);
+  const name=document.getElementById('bizName').value.trim();
+  const msg=`Hello Etqan, I would like to build a brand system${name?` for ${name}`:''}. Layers: ${sel.join(', ')}.`;
+  window.open('https://wa.me/971551258778?text='+encodeURIComponent(msg),'_blank','noopener');
+};
+renderSum();
+
+/* motion */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+  e.target.classList.add('in');
+  if(e.target.matches('[data-c]'))count(e.target);
+  e.target.querySelectorAll&&e.target.querySelectorAll('[data-c]').forEach(count);
+  io.unobserve(e.target)}),{threshold:.2});
+document.querySelectorAll('.rv,[data-c]').forEach(el=>io.observe(el));
+function count(el){if(el.dataset.done)return;el.dataset.done=1;const n=+el.dataset.c,s=performance.now();
+  (function f(t){const k=Math.min((t-s)/1700,1),v=Math.round(n*(1-Math.pow(1-k,4)));
+    el.textContent=v+(n===300?'+':'');if(k<1)requestAnimationFrame(f)})(s)}
+const prog=document.getElementById('prog'),nav=document.getElementById('nav');
+function onScroll(){
+  const h=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(scrollY/h*100)+'%';
+  nav.classList.toggle('s',scrollY>40);
+  sysScroll();
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+const menu=document.getElementById('menu');
+document.getElementById('burger').onclick=()=>menu.classList.toggle('o');
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('o'));
+
+/* cursor */
+const cur=document.getElementById('cur');
+let cx=innerWidth/2,cy=innerHeight/2,tx=cx,ty=cy;
+addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY});
+(function follow(){cx+=(tx-cx)*.25;cy+=(ty-cy)*.25;cur.style.transform=`translate(${cx}px,${cy}px)`;requestAnimationFrame(follow)})();
+document.querySelectorAll('a,button,.pc,.tile,input').forEach(el=>{
+  el.addEventListener('pointerenter',()=>cur.classList.add('big'));
+  el.addEventListener('pointerleave',()=>cur.classList.remove('big'))});
+</script>
+</body>
+</html>
